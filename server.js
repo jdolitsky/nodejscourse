@@ -24,6 +24,7 @@ console.log('Express server listening on port '+port);
 // create database schema for a user model
 var userSchema = mongoose.Schema({
     name: String,
+    image: String,
     bio: String,
     hidden: Boolean,
     wall: Array
@@ -42,7 +43,7 @@ var User = mongoose.model('User', userSchema);
 // user profile
 app.get('/users/:userId', function (req, res) {
 	var userId = req.params.userId;
-	User.find({_id: userId}, function (err, user) {
+	User.findOne({_id: userId}, function (err, user) {
 		if (err || !user) {
 			res.send('No user found by id '+userId);
 		} else {
