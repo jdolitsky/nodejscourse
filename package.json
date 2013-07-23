@@ -1,0 +1,18 @@
+{
+  "author": "Josh Dolitsky <jdolitsky@gmail.com>",
+  "name": "nodejscourse",
+  "description": "easy deployment with node.js and git",
+  "version": "0.0.0",
+  "dependencies": {
+    "express": "*",
+    "ejs": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdolitsky/nodejscourse"
+  },
+  "license": {
+    "type": "MIT",
+    "url" : "http://en.wikipedia.org/wiki/MIT_License"
+  }
+}
