@@ -1,7 +1,4 @@
-nodejscourse
-============
-
-Build a social network in 3 weeks with Node.js
+_Build a social network in 3 weeks with Node.js_
 
 ##Description
 The course will be split into three sections, each new section building off of topics explored from the last. The goal of the course is to build out a fully-functional social network similar to Facebook or Twitter using the popular new framework Node.js.
