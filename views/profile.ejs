@@ -1,2 +1,6 @@
 <h1><%= user.name %></h1>
 <img src="<%= user.image %>">
+<form method="POST" action="/updateBio/<%= user._id %>">
+	<textarea name="bio"><%= user.bio %></textarea>
+	<input type="submit" value="Update">
+</form>

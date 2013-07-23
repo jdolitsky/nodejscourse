@@ -13,6 +13,7 @@ var app = express();
 app.set('views', __dirname+'/views');
 app.use(express.static(__dirname+'/public'));
 app.use(express.logger('dev'));
+app.use(express.bodyParser());
 
 // port that server will listen on
 var port = 3000;
@@ -43,11 +44,35 @@ var User = mongoose.model('User', userSchema);
 // user profile
 app.get('/users/:userId', function (req, res) {
 	var userId = req.params.userId;
-	User.findOne({_id: userId}, function (err, user) {
+	var query = {_id: userId};
+	User.findOne(query, function (err, user) {
 		if (err || !user) {
 			res.send('No user found by id '+userId);
 		} else {
 			res.render('profile.ejs', {user: user});
+		}
+	});
+});
+
+// update bio
+app.post('/updateBio/:userId', function (req, res) {
+	var userId = req.params.userId;
+	var query = {_id: userId};
+
+	var newBio = req.body.bio;
+
+	User.findOne(query, function (err, user) {
+		if (err || !user) {
+			res.send('No user found by id '+userId);
+		} else {
+			user.bio = newBio;
+			user.save(function(err) {
+			    if (err) {
+			    	res.send('There was an error updating the users bio');
+			    } else {
+			    	res.redirect('/users/'+userId);
+			    }
+			  });
 		}
 	});
 });
