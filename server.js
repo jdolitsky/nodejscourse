@@ -23,11 +23,11 @@ console.log('Express server listening on port '+port);
 
 // create database schema for a user model
 var userSchema = mongoose.Schema({
-    name: String,
-    image: String,
-    bio: String,
-    hidden: Boolean,
-    wall: Array
+	name: String,
+	image: String,
+	bio: String,
+	hidden: Boolean,
+	wall: Array
 })
 
 // root route (response for http://localhost:3000/)
