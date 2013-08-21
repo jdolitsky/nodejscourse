@@ -10,6 +10,15 @@ textarea {
     color: #222;
 }
 
+.centerme {
+    text-align:center;
+
+}
+
+.no-margin-top {
+    margin-top: 0px;
+}
+
 body {
     font-size: 1em;
     line-height: 1.4;
@@ -153,6 +162,7 @@ nav a:hover {
 .main aside {
     color: white;
     padding: 0px 5% 10px;
+    text-align: center;
 }
 
 .footer-container footer {
@@ -365,6 +375,13 @@ h1,h2,h3,h4,h5,h6 {
 
 #login:hover {
     text-decoration:underline;
+}
+
+input[type=text], input[type=password] {
+    border: 1px solid rgb(136, 136, 136);
+    margin-bottom: 10px;
+    height: 30px;
+    border-radius: 4px;
 }
 
 /* ==========================================================================
