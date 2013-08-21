@@ -1,6 +1,7 @@
 // required modules
 var express = require('express');
 var mongoose = require('mongoose');
+var engine = require('ejs-locals');
 
 // connect to MongoDB
 var db = 'test';
@@ -9,8 +10,11 @@ mongoose.connect('mongodb://localhost/'+db);
 // initialize our app
 var app = express();
 
+app.engine('ejs', engine);
+
 // app configuation
 app.set('views', __dirname+'/views');
+
 app.use(express.static(__dirname+'/public'));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
