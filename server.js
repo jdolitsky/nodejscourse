@@ -5,7 +5,6 @@ var express = require('express');
 var app = express();
 
 // app configuation
-app.set('views', __dirname+'/views');
 app.use(express.static(__dirname+'/public'));
 app.use(express.logger('dev'));
 
@@ -18,7 +17,5 @@ console.log('Express server listening on port '+port);
 
 // root route (response for http://localhost:3000/)
 app.get('/', function (req, res) {
-
-  res.render('homepage.ejs', {message: "Hello world!"} );
-
+  res.send("Hello World");
 });
