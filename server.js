@@ -19,6 +19,7 @@ console.log('Express server listening on port '+port);
 // root route (response for http://localhost:3000/)
 app.get('/', function (req, res) {
 
-  res.render('homepage.ejs', {message: "Hello world!"} );
+  res.render('homepage.ejs', {title:'Fruits',
+							  fruits:['apple', 'banana', 'orange', 'pear', 'strawberry']});
 
 });

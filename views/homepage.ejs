@@ -1,1 +1,10 @@
-<%= message %>
+<h1><%= title %></h1>
+<ul>
+<% for(var i=0; i<fruits.length; i++) {%>
+	<% if(i%2){ %>
+		<li><%= fruits[i] %></li>
+	<% } else{ %>
+		<li style="color:blue"><%= fruits[i] %></li>
+	<% } %>
+<% } %>
+</ul>
