@@ -119,6 +119,18 @@ body {
     color: white;
 }
 
+#rightside {
+    float:right;
+    padding-top: 9px;
+}
+
+#userpic {
+    float:left;
+    width: 31px;
+    height: 31px;
+
+}
+
 /* ==============
     MOBILE: Menu
    ============== */
@@ -366,7 +378,7 @@ h1,h2,h3,h4,h5,h6 {
 
 }
 
-#login, #login:visited {
+#login, #login:visited , #logout, #logout:visited {
     float:right;
     cursor:pointer;
     float: right;
@@ -374,8 +386,34 @@ h1,h2,h3,h4,h5,h6 {
     color: #690;
     font-size: 20px;
     vertical-align: middle;
-    padding: 10px;
     text-decoration:none;
+
+}
+
+#user, #user:visited {
+    text-decoration:none;
+    color: #D2D8BA;
+    cursor:pointer;
+}
+
+#user:hover {
+    text-decoration: underline;
+}
+
+#login, #login:visited {
+    padding-top:10px;
+}
+
+#logout,#logout:visited {
+        margin-top: -24px;
+    margin-left: 20px;
+}
+
+#username {
+    line-height: 14px;
+font-size: 14px;
+margin-left: 5px;
+
 }
 
 #login:hover {
