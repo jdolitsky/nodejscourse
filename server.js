@@ -51,10 +51,9 @@ var Status = mongoose.model('Status', statusSchema);
 app.get('/', function (req, res) {
 	console.log(req.session.user);
 	if (req.session.user){
-		res.render('homepage.ejs', {user: req.session.user, statuses: []});
-		//Status.find().sort({$natural: -1},function (err, statuses){
-			
-		///});
+		Status.find({},function (err, statuses){
+			res.render('homepage.ejs', {user: req.session.user, statuses: statuses});
+		});
 
 	} else {
 		res.render('welcome.ejs');
