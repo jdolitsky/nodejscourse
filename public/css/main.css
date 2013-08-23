@@ -136,6 +136,10 @@ body {
 height: 120px;
 }
 
+#newstatus {
+    width: 90%;
+}
+
 /* ==============
     MOBILE: Menu
    ============== */
