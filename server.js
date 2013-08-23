@@ -18,6 +18,8 @@ app.set('views', __dirname+'/views');
 app.use(express.static(__dirname+'/public'));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'coloft'}));
 
 // port that server will listen on
 var port = 3000;
@@ -41,8 +43,17 @@ var User = mongoose.model('User', userSchema);
 // root route (response for http://localhost:3000/)
 app.get('/', function (req, res) {
 
-	res.render('homepage.ejs', {message: 'Hello world!'} );
+	if (req.session.user){
+		res.render('homepage.ejs', {user: req.session.user});
+	} else {
+		res.render('welcome.ejs');
+	}
 
+});
+
+app.get('/logout', function (req, res) {
+	delete req.session.user;
+	res.redirect('/login');
 });
 
 app.get('/login', function (req, res) {
@@ -72,6 +83,7 @@ app.post('/login', function (req, res) {
 		if (err || !user) {
 			res.redirect('/login?error2=1');
 		} else {
+			req.session.user = user;
 			res.redirect('/');
 		}
 	});

@@ -1,3 +1,4 @@
 <% layout('layout') -%>
+<% block('topbar', '<img src="'+user.image+'"/><a href="/logout" id="login">Logout</a>') -%>
 
-<h3> <%= message %> </h3>
+<h3>Welcome <%= user.username %> </h3>
