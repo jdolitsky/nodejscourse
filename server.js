@@ -46,15 +46,15 @@ var statusSchema = mongoose.Schema({
 
 // create user model using schema
 var User = mongoose.model('User', userSchema);
+var Status = mongoose.model('Status', statusSchema);
 // root route (response for http://localhost:3000/)
 app.get('/', function (req, res) {
-
+	console.log(req.session.user);
 	if (req.session.user){
-		Status.find().sort({$natural: -1},function (err, statuses){
-			res.render('homepage.ejs', {user: req.session.use, statuses: statuses});
-		});
-
-
+		res.render('homepage.ejs', {user: req.session.user, statuses: []});
+		//Status.find().sort({$natural: -1},function (err, statuses){
+			
+		///});
 
 	} else {
 		res.render('welcome.ejs');
@@ -124,6 +124,7 @@ app.post('/signup', function (req, res){
 					hidden: false,
 					wall: []
 					}).save(function (err){
+						req.session.user = newUser;
 						console.log('New user: '+newUser+' has been created!');
 						res.redirect('/users/'+username);
 					});
