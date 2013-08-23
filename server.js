@@ -91,27 +91,43 @@ app.post('/login', function (req, res) {
 
 
 app.post('/signup', function (req, res){
-	var newUser = new User({ 
-	username: req.body.username,
-	password: req.body.password,
-	image: 'http://leadersinheels.com/wp-content/uploads/facebook-default.jpg', //default image
-	bio: 'Welcome to NodeBook! Edit your Profile here',
-	hidden: false,
-	wall: []
-	}).save(function (err){
-		console.log('New user: '+newUser+' has been created!');
-		res.redirect('/');
-	});
-	
+	var username = req.body.username;
+	var password = req.body.password;
+	var confirm = req.body.confirm;
+	if(password != confirm){
+		res.redirect('/login?error1=1');
+	}
+	else{
+		var query = {username: username};
+		console.log(query);
+
+		User.findOne(query, function (err, user) {
+			if (user) {
+				res.redirect('/login?error1=1');
+			} else {
+					var newUser = new User({ 
+					username: username,
+					password: password,
+					image: 'http://leadersinheels.com/wp-content/uploads/facebook-default.jpg', //default image
+					bio: 'Welcome to NodeBook! Edit your Profile here',
+					hidden: false,
+					wall: []
+					}).save(function (err){
+						console.log('New user: '+newUser+' has been created!');
+						res.redirect('/');
+					});
+			}
+		});
+	}
 });
 
 // user profile
-app.get('/users/:userId', function (req, res) {
-	var userId = req.params.userId;
-	var query = {_id: userId};
+app.get('/users/:username', function (req, res) {
+	var username = req.params.username;
+	var query = {username: username};
 	User.findOne(query, function (err, user) {
 		if (err || !user) {
-			res.send('No user found by id '+userId);
+			res.send('No user found by id '+username);
 		} else {
 			res.render('profile.ejs', {user: user});
 		}
