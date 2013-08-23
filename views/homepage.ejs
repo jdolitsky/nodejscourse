@@ -2,3 +2,11 @@
 <% block('topbar', '<img src="'+user.image+'"/><a href="/logout" id="login">Logout</a>') -%>
 
 <h3>Welcome <%= user.username %> </h3>
+
+
+<br>
+<div id='feed'>
+	<% for(status in statuses){ %>
+		<div class ='comment'> <%= status.status %> </div>
+	<% } %>
+</div>

@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var engine = require('ejs-locals');
+var socket
 
 // connect to MongoDB
 var db = 'test3';
@@ -34,8 +35,13 @@ var userSchema = mongoose.Schema({
 	password: String,
 	image: String,
 	bio: String,
-	hidden: Boolean,
-	wall: Array
+});
+
+var statusSchema = mongoose.Schema({
+	status: String,
+	comments: Array,
+	time: Number,
+	username: String
 });
 
 // create user model using schema
@@ -44,7 +50,12 @@ var User = mongoose.model('User', userSchema);
 app.get('/', function (req, res) {
 
 	if (req.session.user){
-		res.render('homepage.ejs', {user: req.session.user});
+		Status.find().sort({$natural: -1},function (err, statuses){
+			res.render('homepage.ejs', {user: req.session.use, statuses: statuses});
+		});
+
+
+
 	} else {
 		res.render('welcome.ejs');
 	}
@@ -114,7 +125,7 @@ app.post('/signup', function (req, res){
 					wall: []
 					}).save(function (err){
 						console.log('New user: '+newUser+' has been created!');
-						res.redirect('/');
+						res.redirect('/users/'+username);
 					});
 			}
 		});
@@ -129,28 +140,42 @@ app.get('/users/:username', function (req, res) {
 		if (err || !user) {
 			res.send('No user found by id '+username);
 		} else {
-			res.render('profile.ejs', {user: user});
+			Status.find(query, function(err, statuses){
+				res.render('profile.ejs', {user: user, statuses: statuses});	
+			});
+			
 		}
 	});
 });
 
+app.post('/statuses', function (req, res) {
+	var status = req.body.status;
+	var username = req.session.user.username;
+	var query = {username: username};
+	var post = {$push: {status: status}};
+	Status.update(query, post, function (err, user){
+			res.redirect('/users/'+username);
+	});
+});
+
 // update bio
-app.post('/updateBio/:userId', function (req, res) {
-	var userId = req.params.userId;
-	var query = {_id: userId};
+app.post('/bio', function (req, res) {
+	
+	var username = req.session.user.username;
+	var query = {username: username};
 
 	var newBio = req.body.bio;
 
 	User.findOne(query, function (err, user) {
 		if (err || !user) {
-			res.send('No user found by id '+userId);
+			res.send('No user found by name '+username);
 		} else {
 			user.bio = newBio;
 			user.save(function(err) {
 			    if (err) {
 			    	res.send('There was an error updating the users bio');
 			    } else {
-			    	res.redirect('/users/'+userId);
+			    	res.redirect('/users/'+username);
 			    }
 			  });
 		}
