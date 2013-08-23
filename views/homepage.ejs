@@ -9,19 +9,20 @@
 	</div>'
 ) -%>
 
-<h3 class="centerme">Global Feed</h3>
-
-
-<br>
-<div id='feed'>
+<h3 class="centerme" id="gf">Global Feed</h3>
+<div id="feed">
+	<div id="postsOuter">
 	<% for(var i=statuses.length-1; i>=0; i--) { %>
-		<div class ='comment'>
-			<a href="/users/<%= statuses[i].username %>">
+		<div class="post">
+			<a class="colorize" href="/users/<%= statuses[i].username %>">
 				<div class="smallpic">
 					<img class="smallpic_img" src="<%= statuses[i].image %>"/>
-				</div>
+				</div>	
+				<div class="smallname"><%= statuses[i].username %></div>
 			</a>
-			<%= statuses[i].status %>
+			<br>
+			<div class="statusbody"><%= statuses[i].status %></div>
 		</div>
 	<% } %>
+</div>
 </div>
