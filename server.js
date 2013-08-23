@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var engine = require('ejs-locals');
 
 // connect to MongoDB
-var db = 'test2';
+var db = 'test3';
 mongoose.connect('mongodb://localhost/'+db);
 
 // initialize our app
@@ -28,14 +28,16 @@ console.log('Express server listening on port '+port);
 
 // create database schema for a user model
 var userSchema = mongoose.Schema({
-	name: String,
+	username: String,
 	password: String,
 	image: String,
 	bio: String,
 	hidden: Boolean,
 	wall: Array
-})
+});
 
+// create user model using schema
+var User = mongoose.model('User', userSchema);
 // root route (response for http://localhost:3000/)
 app.get('/', function (req, res) {
 
@@ -44,25 +46,51 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-	res.render('login.ejs');
+	var error1 = null;
+	var error2 = null;
 
+	if (req.query.error1) {
+		error1 = "Sorry please try again";
+	}
+
+	if (req.query.error2) {
+		error2 = "Sorry please try again";
+	}
+
+	res.render('login.ejs', {error1: error1, error2: error2});
+});
+
+app.post('/login', function (req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+
+	var query = {username: username, password: password};
+
+	User.findOne(query, function (err, user) {
+		console.log(err);
+		console.log(user);
+		if (err || !user) {
+			res.redirect('/login?error2=1');
+		} else {
+			res.redirect('/');
+		}
+	});
 });
 
 
-// create user model using schema
-var User = mongoose.model('User', userSchema);
-
 app.post('/signup', function (req, res){
 	var newUser = new User({ 
-	name: req.body.username,
+	username: req.body.username,
 	password: req.body.password,
 	image: 'http://leadersinheels.com/wp-content/uploads/facebook-default.jpg', //default image
 	bio: 'Welcome to NodeBook! Edit your Profile here',
 	hidden: false,
 	wall: []
+	}).save(function (err){
+		console.log('New user: '+newUser+' has been created!');
+		res.redirect('/');
 	});
-	console.log('New user: '+newUser+' has been created!');
-	res.redirect('/');
+	
 });
 
 // user profile
