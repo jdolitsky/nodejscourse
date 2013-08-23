@@ -2,7 +2,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var engine = require('ejs-locals');
-var socket
 
 // connect to MongoDB
 var db = 'test3';
@@ -116,15 +115,16 @@ app.post('/signup', function (req, res){
 			if (user) {
 				res.redirect('/login?error1=1');
 			} else {
-					var newUser = new User({ 
-					username: username,
-					password: password,
-					image: 'http://leadersinheels.com/wp-content/uploads/facebook-default.jpg', //default image
-					bio: 'Welcome to NodeBook! Edit your Profile here',
-					hidden: false,
-					wall: []
-					}).save(function (err){
-						req.session.user = newUser;
+					var userData = { 
+						username: username,
+						password: password,
+						image: 'http://leadersinheels.com/wp-content/uploads/facebook-default.jpg', //default image
+						bio: 'Welcome to NodeBook! Edit your Profile here',
+						hidden: false,
+						wall: []
+						};
+					var newUser = new User(userData).save(function (err){
+						req.session.user = userData;
 						console.log('New user: '+newUser+' has been created!');
 						res.redirect('/users/'+username);
 					});
@@ -143,7 +143,6 @@ app.get('/users/:username', function (req, res) {
 			res.send('No user found by id '+username);
 		} else {
 			Status.find(query, function(err, statuses){
-				console.log(statuses);
 				res.render('profile.ejs', {
 					user: user, 
 					statuses: statuses, 
