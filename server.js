@@ -62,6 +62,7 @@ app.get('/', function (req, res) {
 
 app.get('/logout', function (req, res) {
 
+	console.log(req.session.user.username+' has logged out');
 	delete req.session.user;
 	res.redirect('/');
 
@@ -91,14 +92,15 @@ app.post('/login', function (req, res) {
 	var query = {username: username, password: password};
 
 	User.findOne(query, function (err, user) {
-		console.log(err);
-		console.log(user);
+
 		if (err || !user) {
 			res.redirect('/login?error2=1');
 		} else {
 			req.session.user = user;
+			console.log(username+' has logged in');
 			res.redirect('/');
 		}
+
 	});
 });
 
@@ -114,8 +116,8 @@ app.post('/signup', function (req, res){
 	}
 
 	else {
+
 		var query = {username: username};
-		console.log(query);
 
 		User.findOne(query, function (err, user) {
 			if (user) {
@@ -134,7 +136,7 @@ app.post('/signup', function (req, res){
 				var newUser = new User(userData).save(function (err){
 
 					req.session.user = userData;
-					console.log('New user: '+newUser+' has been created!');
+					console.log('New user '+username+' has been created!');
 					res.redirect('/users/'+username);
 
 				});
@@ -191,11 +193,8 @@ app.post('/bio', function (req, res) {
 
 				user.bio = newBio;
 				user.save(function(err) {
-				    if (err) {
-				    	res.send('There was an error updating the users bio');
-				    } else {
-				    	res.redirect('/users/'+username);
-				    }
+					console.log(username+' has updated their bio');
+				    res.redirect('/users/'+username);
 				});
 
 			}
@@ -221,7 +220,7 @@ app.post('/statuses', function (req, res) {
 			comments: [],
 			likes: []
 		}).save(function (err) {
-
+			console.log(username+' has posted a new status');
 			res.redirect('/users/'+username);
 		});
 
