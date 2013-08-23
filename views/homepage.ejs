@@ -1,5 +1,13 @@
 <% layout('layout') -%>
-<% block('topbar', '<img src="'+user.image+'"/><a href="/logout" id="login">Logout</a>') -%>
+<% block('topbar', 
+	'<div id="rightside">\
+		<a id="user" href="/users/'+user.username+'">\
+			<img id="userpic" src="'+user.image+'"/>\
+			<span id="username">'+user.username+'</span>\
+		</a>\
+		<a href="/logout" id="logout">Logout</a>\
+	</div>'
+) -%>
 
 <h3>Welcome <%= user.username %> </h3>
 
