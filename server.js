@@ -155,18 +155,20 @@ app.get('/users/:username', function (req, res) {
 });
 
 app.post('/statuses', function (req, res) {
+	
 	var status = req.body.status;
 	var username = req.session.user.username;
 	var pic = req.session.user.image;
+
 	var newStatus = new Status({ 
-					status: status,
-					comments: [],
-					time: 0,
-					username: username,
-					image: pic	
-					}).save(function (err){
-						res.redirect('/users/'+username);
-					});
+		status: status,
+		comments: [],
+		time: new Date().getTime(),
+		username: username,
+		image: pic	
+	}).save(function (err){
+		res.redirect('/users/'+username);
+	});
 });
 
 // update bio

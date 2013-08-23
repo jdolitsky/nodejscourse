@@ -10,9 +10,13 @@ textarea {
     color: #222;
 }
 
+html{
+    overflow-x:auto;
+    overflow-y:scroll;
+}
+
 .centerme {
     text-align:center;
-
 }
 
 #bio{
@@ -95,6 +99,22 @@ body {
     border-bottom: 20px solid #8cc84b;
     border-bottom: 4px solid #8cc84b;
     border:0;
+}
+
+.timestamp {
+    color: #690;
+    font-size:12px;
+    position:relative;
+    color: #690;
+font-size: 12px;
+position: relative;
+right: 0px;
+z-index: 1000;
+display: inline;
+top: 0px;
+right: 0px;
+float: right;
+text-align: right;
 }
 
 .footer-container,
@@ -427,6 +447,11 @@ background: #46483e;
     border-bottom: 1px solid rgba(34, 53, 32, 0.8);
 padding-top: 13px;
 min-height: 64px;
+border-bottom: 1px solid rgba(42, 48, 41, 0.8);
+}
+
+abbr[title] {
+border-bottom: none;
 }
 
 .invisible {

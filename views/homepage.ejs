@@ -14,6 +14,7 @@
 	<div id="postsOuter">
 	<% for(var i=statuses.length-1; i>=0; i--) { %>
 		<div class="post">
+			<div class="timestamp"><abbr class="timeago" title="<%= new Date(statuses[i].time).toISOString() %>"></abbr></div>
 			<a class="colorize" href="/users/<%= statuses[i].username %>">
 				<div class="smallpic">
 					<img class="smallpic_img" src="<%= statuses[i].image %>"/>
