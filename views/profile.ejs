@@ -1,27 +1,49 @@
 <% layout('layout') -%>
 <% block('topbar', 
 	'<div id="rightside">\
-		<a id="user" href="/users/'+user.username+'">\
-			<img id="userpic" src="'+user.image+'"/>\
-			<span id="username">'+user.username+'</span>\
+		<a id="user" href="/users/'+currentUser.username+'">\
+			<img id="userpic" src="'+currentUser.image+'"/>\
+			<span id="username">'+currentUser.username+'</span>\
 		</a>\
 		<a href="/logout" id="logout">Logout</a>\
 	</div>'
 ) -%>
 
-<h1><%= user.username %></h1>
-<img src="<%= user.image %>">
-<article 
+<%
+if (user.username == currentUser.username) { 
+	var isMe = true;
+} else {
+	var isMe = false;
+}
+%>
+
 
 <aside class="centerme">
+	<h1><%= user.username %></h1>
+	<img id="profPic" src="<%= user.image %>">
+	<% if (isMe) { %> 
     <form method="POST" action="/bio">
 		<textarea style="bio" name="bio"><%= user.bio %></textarea>
 		<input type="submit" value="Update">
 	</form>
+	<% } else { %>
+		<%= user.bio %>
+	<% } %>
 </aside>
 
 <article class="centerme">
-<% for (status in statuses){%>
+<% 
+if (isMe) { %>
+<form action="/statuses" method="POST">
+	<textarea id="newstatus" name="status"></textarea>
+	<input type="submit" value="Post"/>
+</form>
+<% 
+}
+
+for (status in statuses) { %>
 	<h3><%= status.status%></h3>
-<%}%>
+<% 
+} 
+%>
 </article>
