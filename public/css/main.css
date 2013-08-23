@@ -140,6 +140,11 @@ height: 120px;
     width: 90%;
 }
 
+.smallpic_img {
+    width: 48px;
+height: 48px;
+}
+
 /* ==============
     MOBILE: Menu
    ============== */

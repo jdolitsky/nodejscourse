@@ -9,12 +9,19 @@
 	</div>'
 ) -%>
 
-<h3>Welcome <%= user.username %> </h3>
+<h3 class="centerme">Global Feed</h3>
 
 
 <br>
 <div id='feed'>
 	<% for(var i=statuses.length-1; i>0; i--) { %>
-		<div class ='comment'> <%= statuses[i].status %> </div>
+		<div class ='comment'>
+			<a href="/users/<%= statuses[i].username %>">
+				<div class="smallpic">
+					<img class="smallpic_img" src="<%= statuses[i].image %>"/>
+				</div>
+			</a>
+			<%= statuses[i].status %>
+		</div>
 	<% } %>
 </div>
