@@ -11,19 +11,23 @@
 
 <h3 class="centerme" id="gf">Global Feed</h3>
 <div id="feed">
+	<% if (statuses[0]) { %>
 	<div id="postsOuter">
-	<% for(var i=statuses.length-1; i>=0; i--) { %>
-		<div class="post">
-			<div class="timestamp"><abbr class="timeago" title="<%= new Date(statuses[i].time).toISOString() %>"></abbr></div>
-			<a class="colorize" href="/users/<%= statuses[i].username %>">
-				<div class="smallpic">
-					<img class="smallpic_img" src="<%= statuses[i].image %>"/>
-				</div>	
-				<div class="smallname"><%= statuses[i].username %></div>
-			</a>
-			<br>
-			<div class="statusbody"><%= statuses[i].status %></div>
-		</div>
+		<% for(var i=statuses.length-1; i>=0; i--) { %>
+			<div class="post">
+				<div class="timestamp"><abbr class="timeago" title="<%= new Date(statuses[i].time).toISOString() %>"></abbr></div>
+				<a class="colorize" href="/users/<%= statuses[i].username %>">
+					<div class="smallpic">
+						<img class="smallpic_img" src="<%= statuses[i].image %>"/>
+					</div>	
+					<div class="smallname"><%= statuses[i].username %></div>
+				</a>
+				<br>
+				<div class="statusbody"><%= statuses[i].body %></div>
+			</div>
+		<% } %>
+	<% } else { %>
+		<div id="noposts"> No posts at this time</div>
 	<% } %>
 </div>
 </div>

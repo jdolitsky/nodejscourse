@@ -115,6 +115,7 @@ top: 0px;
 right: 0px;
 float: right;
 text-align: right;
+margin-right: 13px;
 }
 
 .footer-container,
@@ -391,6 +392,8 @@ nav a:hover {
 .statusbody {
     color: white;
 font-size: 13px;
+max-width: 75%;
+margin-bottom: 13px;
 }
 
 .smallpic {
@@ -435,23 +438,35 @@ text-decoration:none;
 
 #gf {
     margin-top: 0px;
-margin-bottom: 10px;
-
+    margin-bottom: 10px;
 }
+
 .post {
-    display:block;
-background: #46483e;
+    display:inline-block;
+    background: #46483e;
     min-height:68px;
     padding-left:20px;
     padding-right:20px;
     border-bottom: 1px solid rgba(34, 53, 32, 0.8);
-padding-top: 13px;
-min-height: 64px;
-border-bottom: 1px solid rgba(42, 48, 41, 0.8);
+    padding-top: 13px;
+    min-height: 64px;
+    border-bottom: 1px solid rgba(42, 48, 41, 0.8);
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+}
+
+.smallpic {
+    margin-left: 13px;
 }
 
 abbr[title] {
 border-bottom: none;
+}
+
+#noposts {
+    text-align: center;
+font-size: 13px;
 }
 
 .invisible {
