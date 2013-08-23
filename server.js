@@ -63,7 +63,7 @@ app.get('/', function (req, res) {
 app.get('/logout', function (req, res) {
 
 	delete req.session.user;
-	res.redirect('/login');
+	res.redirect('/');
 
 });
 
@@ -136,7 +136,7 @@ app.post('/signup', function (req, res){
 					req.session.user = userData;
 					console.log('New user: '+newUser+' has been created!');
 					res.redirect('/users/'+username);
-					
+
 				});
 			}
 		});
@@ -146,25 +146,30 @@ app.post('/signup', function (req, res){
 // user profile
 app.get('/users/:username', function (req, res) {
 
-	var username = req.params.username.toLowerCase();
-	var query = {username: username};
-	var currentUser = req.session.user;
+	if (req.session.user) {
 
-	User.findOne(query, function (err, user) {
+		var username = req.params.username.toLowerCase();
+		var query = {username: username};
+		var currentUser = req.session.user;
 
-		if (err || !user) {
-			res.send('No user found by id '+username);
-		} else {
-			Status.find(query, function(err, statuses){
-				res.render('profile.ejs', {
-					user: user, 
-					statuses: statuses, 
-					currentUser: currentUser
-				});	
-			});
-		}
+		User.findOne(query, function (err, user) {
 
-	});
+			if (err || !user) {
+				res.send('No user found by id '+username);
+			} else {
+				Status.find(query, function(err, statuses){
+					res.render('profile.ejs', {
+						user: user, 
+						statuses: statuses, 
+						currentUser: currentUser
+					});	
+				});
+			}
+		});
+	} else {
+
+		res.redirect('/login');
+	}
 });
 
 app.post('/bio', function (req, res) {

@@ -32,16 +32,17 @@ if (user.username == currentUser.username) {
 </aside>
 
 <article class="centerme">
-<% 
-if (isMe) { %>
-<h3>
-<form action="/statuses" method="POST">
-	<textarea id="newstatus" name="status" placeholder="What's your status?"></textarea>
-	<input type="submit" value="Post"/>
-</form>
-<% }%>
+	<% 
+	if (isMe) { %>
+		<form action="/statuses" method="POST">
+			<textarea id="newstatus" name="status" placeholder="What's your status?"></textarea>
+			<input type="submit" value="Post"/>
+		</form>
+	<% }%>
 
-<% for (var i=statuses.length-1; i>=0; i--) { %>
-	<h3><%= statuses[i].body %></h3>
-<% } %>
+	<% 
+	for (var i=statuses.length-1; i>=0; i--) { %>
+		<h3><%= statuses[i].body %></h3>
+	<% } %>
+
 </article>
