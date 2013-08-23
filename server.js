@@ -136,12 +136,18 @@ app.post('/signup', function (req, res){
 app.get('/users/:username', function (req, res) {
 	var username = req.params.username;
 	var query = {username: username};
+	var currentUser = req.session.user;
+
 	User.findOne(query, function (err, user) {
 		if (err || !user) {
 			res.send('No user found by id '+username);
 		} else {
 			Status.find(query, function(err, statuses){
-				res.render('profile.ejs', {user: user, statuses: statuses});	
+				res.render('profile.ejs', {
+					user: user, 
+					statuses: statuses, 
+					currentUser: currentUser
+				});	
 			});
 			
 		}

@@ -131,6 +131,11 @@ body {
 
 }
 
+#profPic {
+    width: 120px;
+height: 120px;
+}
+
 /* ==============
     MOBILE: Menu
    ============== */
@@ -388,6 +393,10 @@ h1,h2,h3,h4,h5,h6 {
     vertical-align: middle;
     text-decoration:none;
 
+}
+
+#logout:hover {
+    text-decoration: underline;
 }
 
 #user, #user:visited {
