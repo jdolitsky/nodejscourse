@@ -389,6 +389,14 @@ nav a:hover {
     float: left;
 }
 
+#ryan {
+    -webkit-box-shadow: 0 2px 10px #2B2B2B;
+    -moz-box-shadow: 0 2px 10px #2B2B2B;
+    box-shadow: 0 2px 10px #2B2B2B;
+    opacity: .2;
+    margin-top: -30px;
+}
+
 .statusbody {
     color: white;
 font-size: 13px;
