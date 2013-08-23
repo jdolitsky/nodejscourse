@@ -34,8 +34,9 @@ if (user.username == currentUser.username) {
 <article class="centerme">
 <% 
 if (isMe) { %>
+<h3>
 <form action="/statuses" method="POST">
-	<textarea id="newstatus" name="status"></textarea>
+	<textarea id="newstatus" name="status" placeholder="What's your status?"></textarea>
 	<input type="submit" value="Post"/>
 </form>
 <% }%>
