@@ -19,6 +19,7 @@ var User = mongoose.model('User', userSchema);
 
 var josh = new User({ 
 	name: 'Josh Dolitsky',
+	password:
 	image: 'http://m.c.lnkd.licdn.com/media/p/3/000/10e/1a3/03c6dca.jpg',
 	bio: 'I am a web developer from Chicago',
 	hidden: false,

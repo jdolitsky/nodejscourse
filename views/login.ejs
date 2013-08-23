@@ -1,7 +1,6 @@
 <% layout('layout') -%>
 
 
-
 <article class="centerme">
 	<h1 class="no-margin-top">Login</h1>
 	<input type="text" placeholder="username"/><br>
@@ -10,7 +9,10 @@
 
 <aside class="centerme">
     <h3>Not a member? Sign up!</h3>
-    <input type="text" placeholder="username"/><br>
-    <input type="password" placeholder="password"/><br>
-    <input type="password" placeholder="confirm"/><br>
+    <form method="post" action="/signup">
+	    <input type="text" name="username" placeholder="username"/><br>
+	    <input type="password" name="password" placeholder="password"/><br>
+	    <input type="password" name="confirm" placeholder="confirm"/><br>
+    	<button type="sumbit"> Sign Up! </button>
+    </form>
 </aside>

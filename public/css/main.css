@@ -15,6 +15,11 @@ textarea {
 
 }
 
+#bio{
+    margin-top: 20px;
+    height: 100px;
+    width: 300px;
+}
 .no-margin-top {
     margin-top: 0px;
 }

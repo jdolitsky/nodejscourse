@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var engine = require('ejs-locals');
 
 // connect to MongoDB
-var db = 'test';
+var db = 'test2';
 mongoose.connect('mongodb://localhost/'+db);
 
 // initialize our app
@@ -29,6 +29,7 @@ console.log('Express server listening on port '+port);
 // create database schema for a user model
 var userSchema = mongoose.Schema({
 	name: String,
+	password: String,
 	image: String,
 	bio: String,
 	hidden: Boolean,
@@ -43,13 +44,26 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-
 	res.render('login.ejs');
 
 });
 
+
 // create user model using schema
 var User = mongoose.model('User', userSchema);
+
+app.post('/signup', function (req, res){
+	var newUser = new User({ 
+	name: req.body.username,
+	password: req.body.password,
+	image: 'http://leadersinheels.com/wp-content/uploads/facebook-default.jpg', //default image
+	bio: 'Welcome to NodeBook! Edit your Profile here',
+	hidden: false,
+	wall: []
+	});
+	console.log('New user: '+newUser+' has been created!');
+	res.redirect('/');
+});
 
 // user profile
 app.get('/users/:userId', function (req, res) {
