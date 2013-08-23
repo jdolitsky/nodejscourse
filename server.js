@@ -109,11 +109,11 @@ app.post('/signup', function (req, res){
 	var password = req.body.password;
 	var confirm = req.body.confirm;
 
-	if(password != confirm){
+	if(password != confirm) {
 		res.redirect('/login?error1=1');
 	}
 
-	else{
+	else {
 		var query = {username: username};
 		console.log(query);
 
@@ -173,50 +173,59 @@ app.get('/users/:username', function (req, res) {
 });
 
 app.post('/bio', function (req, res) {
+
+	if (req.session.user) {
 	
-	var username = req.session.user.username;
-	var query = {username: username};
+		var username = req.session.user.username;
+		var query = {username: username};
 
-	var newBio = req.body.bio;
+		var newBio = req.body.bio;
 
-	User.findOne(query, function (err, user) {
+		User.findOne(query, function (err, user) {
 
-		if (err || !user) {
+			if (err || !user) {
 
-			res.send('No user found by name '+username);
+				res.send('No user found by name '+username);
 
-		} else {
+			} else {
 
-			user.bio = newBio;
-			user.save(function(err) {
-			    if (err) {
-			    	res.send('There was an error updating the users bio');
-			    } else {
-			    	res.redirect('/users/'+username);
-			    }
-			});
+				user.bio = newBio;
+				user.save(function(err) {
+				    if (err) {
+				    	res.send('There was an error updating the users bio');
+				    } else {
+				    	res.redirect('/users/'+username);
+				    }
+				});
 
-		}
-	});
+			}
+		});
+	} else {
+		res.redirect('/login');
+	}
 });
 
 app.post('/statuses', function (req, res) {
 
-	var status = req.body.status;
-	var username = req.session.user.username;
-	var pic = req.session.user.image;
+	if (req.session.user) {
 
-	var newStatus = new Status({ 
-		body: status,
-		time: new Date().getTime(),
-		username: username,
-		image: pic,
-		comments: [],
-		likes: []
-	}).save(function (err){
+		var status = req.body.status;
+		var username = req.session.user.username;
+		var pic = req.session.user.image;
 
-		res.redirect('/users/'+username);
+		var newStatus = new Status({ 
+			body: status,
+			time: new Date().getTime(),
+			username: username,
+			image: pic,
+			comments: [],
+			likes: []
+		}).save(function (err) {
 
-	});
+			res.redirect('/users/'+username);
+		});
 
+	} else {
+		res.redirect('/login');
+	}
 });
