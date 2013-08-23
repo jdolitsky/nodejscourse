@@ -41,7 +41,8 @@ var statusSchema = mongoose.Schema({
 	status: String,
 	comments: Array,
 	time: Number,
-	username: String
+	username: String,
+	image: String
 });
 
 // create user model using schema
@@ -137,12 +138,12 @@ app.get('/users/:username', function (req, res) {
 	var username = req.params.username;
 	var query = {username: username};
 	var currentUser = req.session.user;
-
 	User.findOne(query, function (err, user) {
 		if (err || !user) {
 			res.send('No user found by id '+username);
 		} else {
 			Status.find(query, function(err, statuses){
+				console.log(statuses);
 				res.render('profile.ejs', {
 					user: user, 
 					statuses: statuses, 
@@ -157,11 +158,16 @@ app.get('/users/:username', function (req, res) {
 app.post('/statuses', function (req, res) {
 	var status = req.body.status;
 	var username = req.session.user.username;
-	var query = {username: username};
-	var post = {$push: {status: status}};
-	Status.update(query, post, function (err, user){
-			res.redirect('/users/'+username);
-	});
+	var pic = req.session.user.image;
+	var newStatus = new Status({ 
+					status: status,
+					comments: [],
+					time: 0,
+					username: username,
+					image: pic	
+					}).save(function (err){
+						res.redirect('/users/'+username);
+					});
 });
 
 // update bio

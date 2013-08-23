@@ -38,12 +38,9 @@ if (isMe) { %>
 	<textarea id="newstatus" name="status"></textarea>
 	<input type="submit" value="Post"/>
 </form>
-<% 
-}
+<% }%>
 
-for (status in statuses) { %>
-	<h3><%= status.status%></h3>
-<% 
-} 
-%>
+<% for (var i=statuses.length-1; i>0; i--) { %>
+	<h3><%= statuses[i].status%></h3>
+<% } %>
 </article>
