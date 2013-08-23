@@ -44,8 +44,33 @@ app.get('/', function (req, res) {
 
 app.get('/login', function (req, res) {
 
-	res.render('login.ejs');
+	var error1 = null;
+	var error2 = null;
 
+	if (req.query.error1) {
+		error1 = "Sorry please try again";
+	}
+
+	if (req.query.error2) {
+		error2 = "Sorry please try again";
+	}
+
+	res.render('login.ejs', {error1: error1, error2: error2});
+});
+
+app.post('/login', function (req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+
+	var query = {username: username, password: password};
+
+	User.findOne(query, function (err, user) {
+		if (err || !user) {
+			res.redirect('/login?error2=1');
+		} else {
+			res.redirect('/');
+		}
+	});
 });
 
 // create user model using schema
