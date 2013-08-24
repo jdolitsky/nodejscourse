@@ -5,7 +5,7 @@ var engine = require('ejs-locals');
 var http = require('http');
 
 // connect to MongoDB
-var db = 'coloft';
+var db = 'nodebook';
 mongoose.connect('mongodb://localhost/'+db);
 
 // initialize our app
@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
 
 	if (req.session.user){
 
-		Status.find({},function (err, statuses){
+		Status.find({}).sort({time: -1}).execFind(function (err, statuses){
 			res.render('homepage.ejs', {user: req.session.user, statuses: statuses});
 		});
 
@@ -166,7 +166,7 @@ app.get('/users/:username', function (req, res) {
 			if (err || !user) {
 				res.send('No user found by id '+username);
 			} else {
-				Status.find(query, function(err, statuses){
+				Status.find(query).sort({time: -1}).execFind(function(err, statuses){
 					res.render('profile.ejs', {
 						user: user, 
 						statuses: statuses, 
