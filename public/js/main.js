@@ -3,6 +3,15 @@ jQuery(document).ready(function() {
 });
 
 var socket = io.connect('http://localhost:3000');
-socket.on('newStatus', function (status) { 
-    console.log(status.username);
+
+
+socket.on('newStatus', function (res) { 
+	console.log(res.statusData);
+	var time = new Date(res.statusData.time).toISOString();
+	var addStatus = '<div class="post"><div class="timestamp"><abbr class="timeago" title="'+time+
+				'"></abbr></div><a class="colorize" href="/users/'+res.statusData.username+
+				'"><div class="smallpic"><img class="smallpic_img" src="'+res.statusData.image+
+				'"/></div>	<div class="smallname">'+res.statusData.username+
+				'</div></a><br><div class="statusbody">'+res.statusData.body+'</div></div>';
+    $('#socket').prepend(addStatus);
 });

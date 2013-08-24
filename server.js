@@ -211,26 +211,22 @@ app.post('/bio', function (req, res) {
 app.post('/statuses', function (req, res) {
 
 	if (req.session.user) {
-
-		var status = req.body.status;
-		var username = req.session.user.username;
-		var pic = req.session.user.image;
-
-		var newStatus = new Status({ 
-			body: status,
-			time: new Date().getTime(),
-			username: username,
-			image: pic,
-			comments: [],
-			likes: []
-		}).save(function (err) {
-			console.log(username+' has posted a new status');
-			io.sockets.on('connection', function(socket){
-				socket.emit('newStatus', newStatus);
+			var status = req.body.status;
+			var username = req.session.user.username;
+			var pic = req.session.user.image;
+			var statusData = { 
+				body: status,
+				time: new Date().getTime(),
+				username: username,
+				image: pic,
+				comments: [],
+				likes: []
+			};
+			var newStatus = new Status(statusData).save(function (err) {
+				console.log(username+' has posted a new status');
+				io.sockets.emit('newStatus', {statusData: statusData});
+				res.redirect('/users/'+username);
 			});
-			res.redirect('/users/'+username);
-		});
-
 	} else {
 		res.redirect('/login');
 	}
