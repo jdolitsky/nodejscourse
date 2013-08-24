@@ -8,7 +8,9 @@
 		<a href="/logout" id="logout">Logout</a>\
 	</div>'
 ) -%>
-
+<script>
+var myname = "<%= currentUser.username %>";
+</script>
 <%
 if (user.username == currentUser.username) { 
 	var isMe = true;

@@ -20,7 +20,8 @@ socket.on('newStatus', function (res) {
 				'</div></a><br><div class="statusbody">'+res.statusData.body+'</div></div>';
     $('#socket').prepend(addStatus);
 
-    if ($('#theusername').text() == res.statusData.username) {
+    var pageuser = $('#theusername').text();
+    if (pageuser == res.statusData.username && pageuser != myname) {
     	$('#postsOuter').prepend(addStatus);
     }
 
