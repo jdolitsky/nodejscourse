@@ -1,12 +1,14 @@
 {
   "author": "Josh Dolitsky <jdolitsky@gmail.com>",
   "name": "nodejscourse",
-  "description": "easy deployment with node.js and git",
+  "description": "Node.js Bootcamp - Build a Social Network in a Day",
   "version": "0.0.0",
   "dependencies": {
-    "express": "*",
+    "express": "~3.3.5",
     "ejs": "*",
-    "mongoose": "*"
+    "mongoose": "~3.6.18",
+    "ejs-locals": "~1.0.2",
+    "socket.io": "~0.9.16"
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,6 @@
   },
   "license": {
     "type": "MIT",
-    "url" : "http://en.wikipedia.org/wiki/MIT_License"
+    "url": "http://en.wikipedia.org/wiki/MIT_License"
   }
 }
