@@ -1,9 +1,14 @@
 jQuery(document).ready(function() {
 	jQuery("abbr.timeago").timeago();
+	$("#newstatus").keydown(function(e){
+	    if (e.keyCode == 13) {
+	        $('#postNewStatus').submit();
+	    }
+	}); 
 });
 
-var socket = io.connect('http://localhost:3000');
-
+var hostname = document.write(location.hostname);
+var socket = io.connect(hostname);
 
 socket.on('newStatus', function (res) { 
 	console.log(res.statusData);
@@ -14,4 +19,5 @@ socket.on('newStatus', function (res) {
 				'"/></div>	<div class="smallname">'+res.statusData.username+
 				'</div></a><br><div class="statusbody">'+res.statusData.body+'</div></div>';
     $('#socket').prepend(addStatus);
+    jQuery("abbr.timeago").timeago();
 });

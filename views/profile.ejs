@@ -37,7 +37,7 @@ if (user.username == currentUser.username) {
 	<div id="postsOuter">
 	<% 
 	if (isMe) { %>
-		<form action="/statuses" method="POST">
+		<form action="/statuses"  id="postNewStatus" method="POST">
 			<textarea id="newstatus" name="status" placeholder="What's your status?"></textarea>
 			<input class="sub" type="submit" value="Post"/>
 		</form>
