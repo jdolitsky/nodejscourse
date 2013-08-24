@@ -19,6 +19,7 @@ html{
     text-align:center;
 }
 
+
 #bio{
     margin-top: 20px;
     height: 100px;
@@ -35,6 +36,13 @@ margin: 0 auto;
 border-radius: 4px;
 border: 1px solid rgb(155, 155, 155);
 }
+
+#image {
+    max-width: 94%;
+min-width: 94%;
+width: 94%;
+}
+
 .no-margin-top {
     margin-top: 0px;
 }

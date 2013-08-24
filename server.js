@@ -62,8 +62,13 @@ app.get('/', function (req, res) {
 
 app.get('/logout', function (req, res) {
 
+	
+	if (req.session.user) {
+		delete req.session.user;
+	}
+
 	console.log(req.session.user.username+' has logged out');
-	delete req.session.user;
+
 	res.redirect('/');
 
 });
@@ -174,7 +179,7 @@ app.get('/users/:username', function (req, res) {
 	}
 });
 
-app.post('/bio', function (req, res) {
+app.post('/profile', function (req, res) {
 
 	if (req.session.user) {
 	
@@ -182,23 +187,22 @@ app.post('/bio', function (req, res) {
 		var query = {username: username};
 
 		var newBio = req.body.bio;
+		var newImage = req.body.image;
 
-		User.findOne(query, function (err, user) {
+		var change = {bio: newBio, image: newImage};
 
-			if (err || !user) {
+		User.update(query, change, function (err, user) {
 
-				res.send('No user found by name '+username);
+			Status.update(query, {image: newImage}, {multi: true}, function(err, statuses){
+				
+				console.log(username+' has updated their profile');
+				req.session.user.bio = newBio;
+				req.session.user.image = newImage;
+			    res.redirect('/users/'+username);
+			});
 
-			} else {
-
-				user.bio = newBio;
-				user.save(function(err) {
-					console.log(username+' has updated their bio');
-				    res.redirect('/users/'+username);
-				});
-
-			}
 		});
+
 	} else {
 		res.redirect('/login');
 	}

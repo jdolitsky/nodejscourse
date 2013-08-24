@@ -22,8 +22,11 @@ if (user.username == currentUser.username) {
 	<h1 id="theusername"><%= user.username %></h1>
 	<img id="profPic" src="<%= user.image %>"><br>
 	<% if (isMe) { %> 
-    <form method="POST" action="/bio">
-		<textarea id="bio" name="bio"><%= user.bio %></textarea><br>
+    <form method="POST" action="/profile">
+    	Image<br>
+		<input name="image" type="text" id="image" value="<%= user.image %>"/><br>
+		Bio<br>
+		<textarea id="bio" name="bio"><%= user.bio %></textarea><br><br>
 		<input class="sub" type="submit" value="Update">
 	</form>
 	<% } else { %>
