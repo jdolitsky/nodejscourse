@@ -19,5 +19,10 @@ socket.on('newStatus', function (res) {
 				'"/></div>	<div class="smallname">'+res.statusData.username+
 				'</div></a><br><div class="statusbody">'+res.statusData.body+'</div></div>';
     $('#socket').prepend(addStatus);
+
+    if ($('#theusername').text() == res.statusData.username) {
+    	$('#postsOuter').prepend(addStatus);
+    }
+
     jQuery("abbr.timeago").timeago();
 });
