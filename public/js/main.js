@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 	}); 
 });
 
-var hostname = document.write(location.hostname);
+var hostname = window.location.hostname;
 var socket = io.connect(hostname);
 
 socket.on('newStatus', function (res) { 
