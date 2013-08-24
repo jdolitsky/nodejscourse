@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var engine = require('ejs-locals');
+var http = require('http');
 
 // connect to MongoDB
 var db = 'coloft';
@@ -23,7 +24,10 @@ app.use(express.session({secret: 'coloft'}));
 var port = 3000;
 
 // start listening...
-app.listen(port);
+//app.listen(port);
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+server.listen(port);
 console.log('Express server listening on port '+port);
 
 
@@ -221,6 +225,9 @@ app.post('/statuses', function (req, res) {
 			likes: []
 		}).save(function (err) {
 			console.log(username+' has posted a new status');
+			io.sockets.on('connection', function(socket){
+				socket.emit('newStatus', newStatus);
+			});
 			res.redirect('/users/'+username);
 		});
 
