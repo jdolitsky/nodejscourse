@@ -23,6 +23,17 @@ html{
     margin-top: 20px;
     height: 100px;
     width: 300px;
+    margin-top: 0px;
+margin-bottom: 3px;
+height: 36px;
+max-height:36px;
+min-height:36px;
+max-width:94%;
+min-width:94%;
+width: 94%;
+margin: 0 auto;
+border-radius: 4px;
+border: 1px solid rgb(155, 155, 155);
 }
 .no-margin-top {
     margin-top: 0px;
@@ -123,6 +134,7 @@ margin-right: 13px;
     /*border-top: 20px solid #e44d26;
     border-top: 20px solid #8cc84b;*/
     border-top: 4px solid #8cc84b;
+    border: 4px solid #4C5246;
 }
 
 .footer-container {
@@ -152,13 +164,40 @@ margin-right: 13px;
 
 }
 
+#theusername {
+    color: #D2D8BA;
+}
 #profPic {
     width: 120px;
 height: 120px;
+margin-bottom: 14px;
+}
+
+.sub {
+    border:0px;
+    background-image: linear-gradient(to bottom, #FDFDFD, #6F6F6F);
+border-radius: 3px;
+padding: 6px;
+vertical-align: middle;
+margin-left: -1%;
+margin-top: 5px;
 }
 
 #newstatus {
     width: 90%;
+    width: 86%;
+float: left;
+margin-bottom: 7px;
+margin-left: 4px;
+float:left;
+border-radius: 4px;
+border: 1px solid rgb(155, 155, 155);
+width: 75%;
+max-width: 75%;
+min-width: 75%;
+height: 36px;
+max-height: 36px;
+min-height: 36px;
 }
 
 .smallpic_img {
@@ -211,10 +250,16 @@ nav a:hover {
     font-size: 2em;
 }
 
+h1 {
+    margin-top: 4px;
+margin-bottom: 4px;
+}
+
 .main aside {
     color: white;
     padding: 0px 5% 10px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .footer-container footer {
@@ -402,6 +447,7 @@ nav a:hover {
 font-size: 13px;
 max-width: 75%;
 margin-bottom: 13px;
+text-align: left;
 }
 
 .smallpic {
