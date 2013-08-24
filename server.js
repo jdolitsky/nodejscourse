@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var engine = require('ejs-locals');
+var http = require('http');
 
 // connect to MongoDB
 var db = 'coloft';
@@ -23,7 +24,10 @@ app.use(express.session({secret: 'coloft'}));
 var port = 3000;
 
 // start listening...
-app.listen(port);
+//app.listen(port);
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+server.listen(port);
 console.log('Express server listening on port '+port);
 
 
@@ -211,23 +215,22 @@ app.post('/profile', function (req, res) {
 app.post('/statuses', function (req, res) {
 
 	if (req.session.user) {
-
-		var status = req.body.status;
-		var username = req.session.user.username;
-		var pic = req.session.user.image;
-
-		var newStatus = new Status({ 
-			body: status,
-			time: new Date().getTime(),
-			username: username,
-			image: pic,
-			comments: [],
-			likes: []
-		}).save(function (err) {
-			console.log(username+' has posted a new status');
-			res.redirect('/users/'+username);
-		});
-
+			var status = req.body.status;
+			var username = req.session.user.username;
+			var pic = req.session.user.image;
+			var statusData = { 
+				body: status,
+				time: new Date().getTime(),
+				username: username,
+				image: pic,
+				comments: [],
+				likes: []
+			};
+			var newStatus = new Status(statusData).save(function (err) {
+				console.log(username+' has posted a new status');
+				io.sockets.emit('newStatus', {statusData: statusData});
+				res.redirect('/users/'+username);
+			});
 	} else {
 		res.redirect('/login');
 	}
